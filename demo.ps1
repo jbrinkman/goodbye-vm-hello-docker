@@ -1,3 +1,6 @@
-write-host "Mount a volume"
+write-host "Run IIS with port mapping"
 
-docker run -it --rm -v ${pwd}:c:\data  microsoft/powershell:nanoserver powershell
+docker run --rm -d -p 80:80 --name iis microsoft/iis:nanoserver
+
+$ip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" iis
+start-process "http://$ip"
