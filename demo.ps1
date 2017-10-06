@@ -1,4 +1,3 @@
-write-host "Running the multi-docker example"
+write-host "Using Windows Containers"
 
-docker run -it --rm -d --name amazon microsoft/powershell:amazonlinux powershell
-docker run -it --rm -d --name unknown microsoft/powershell powershell
+docker run -it --rm --name windows microsoft/powershell:nanoserver powershell
