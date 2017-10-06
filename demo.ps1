@@ -1,6 +1,8 @@
-write-host "Add local content"
+write-host "Add local content for real"
 
-docker run --rm -d -p 80:80 -v ${pwd}\website:c:\inetpub\wwwroot --name iis microsoft/iis:nanoserver
+docker build -t jbrinkman/simple-site .
 
-$ip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" iis
+docker run --rm -d -p 80:80 --name mysite jbrinkman/simple-site
+
+$ip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" mysite
 start-process "http://$ip"
