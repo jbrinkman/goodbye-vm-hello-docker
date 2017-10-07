@@ -1,8 +1,8 @@
-write-host "Build DNN Image with tags"
+write-host "Using docker-compose with dockerfile"
 
-docker build -t jbrinkman/dnn:9.1.1 -t jbrinkman/dnn:latest .
+docker-compose up -d
 
-docker run --rm -d -p 80:80 --name dnnsite jbrinkman/dnn
+# Note: This nodename and network name may change for your particular machine
+$ip = docker inspect -f "{{ .NetworkSettings.Networks.goodbyevmhellodocker_webnet.IPAddress }}" goodbyevmhellodocker_web_1
 
-$ip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" dnnsite
 start-process "http://$ip"

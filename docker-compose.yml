@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+    web:
+        ports:
+            - "80:80"
+        networks:
+            - webnet
+        image: jbrinkman/dnn:9.1.1
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        
+networks:
+    webnet:
