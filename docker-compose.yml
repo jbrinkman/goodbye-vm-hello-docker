@@ -1,4 +1,4 @@
-version: "3"
+version: "2.1"
 
 services:
     web:
@@ -6,10 +6,26 @@ services:
             - "80:80"
         networks:
             - webnet
+        depends_on:
+            - db
         image: jbrinkman/dnn:9.1.1
         build:
-            context: ./
+            context: .\
             dockerfile: Dockerfile
+
+    db:
+        build: 
+            context: .\database\
+            dockerfile: Dockerfile
+        mem_limit: 2048m
+        container_name: dnn_db
+        environment:
+            - ACCEPT_EULA=Y
+            - sa_password=dnnHost1
+        expose:
+            - "1433"
+        networks:
+            - webnet
         
 networks:
     webnet:
